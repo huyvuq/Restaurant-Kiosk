@@ -1,24 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Item View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ItemViewController" customModule="Restaurant_Kiosk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3xP-de-u1K">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="qbb-ws-h9J">
+                                    <size key="itemSize" width="140" height="140"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FoodItemCollectionViewCell" id="voW-f7-phV" customClass="Cell" customModule="Restaurant_Kiosk" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="70" width="140" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="CIc-VC-gEd" customClass="FoodHeader" customModule="Restaurant_Kiosk" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="js0-DL-k3H">
+                                            <rect key="frame" x="20" y="0.0" width="355" height="50"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="js0-DL-k3H" firstAttribute="top" secondItem="CIc-VC-gEd" secondAttribute="top" id="3OB-4o-QC2"/>
+                                        <constraint firstItem="js0-DL-k3H" firstAttribute="leading" secondItem="CIc-VC-gEd" secondAttribute="leading" constant="20" id="ObN-Na-DCQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="js0-DL-k3H" secondAttribute="bottom" id="w2f-rk-O03"/>
+                                        <constraint firstAttribute="trailing" secondItem="js0-DL-k3H" secondAttribute="trailing" id="zir-vx-xL6"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="titleLabel" destination="js0-DL-k3H" id="zLZ-cP-rQL"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="3xP-de-u1K" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="DI8-fd-GQa"/>
+                            <constraint firstItem="3xP-de-u1K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MfU-Lh-uIi"/>
+                            <constraint firstItem="3xP-de-u1K" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="gZu-93-qu6"/>
+                            <constraint firstItem="3xP-de-u1K" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="icm-Ey-BDd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="3xP-de-u1K" id="1K7-I1-liN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+        </scene>
+        <!--Food Item Detail View Controller-->
+        <scene sceneID="ZkE-av-LYg">
+            <objects>
+                <viewController storyboardIdentifier="FoodItemDetail" id="OYP-hy-2a1" customClass="FoodItemDetailViewController" customModule="Restaurant_Kiosk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XmX-Cb-usN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ECf-Ch-nAr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="jmc-3E-afO">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0R-q6-J2l">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="msd-sT-YJ3">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hl6-gH-AZ9">
+                                <rect key="frame" x="40" y="120" width="295" height="447"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZFw-BW-ZV8">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="447"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tq-tZ-p5M">
+                                        <rect key="frame" x="10" y="397" width="275" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="YwL-g4-S06"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="cancelButton:" destination="OYP-hy-2a1" eventType="touchUpInside" id="D4m-hf-XIM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ZFw-BW-ZV8" secondAttribute="bottom" id="BCe-ok-pSB"/>
+                                    <constraint firstAttribute="trailing" secondItem="5tq-tZ-p5M" secondAttribute="trailing" constant="10" id="BPz-wQ-qe9"/>
+                                    <constraint firstItem="ZFw-BW-ZV8" firstAttribute="top" secondItem="hl6-gH-AZ9" secondAttribute="top" id="Os1-Z1-OpS"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZFw-BW-ZV8" secondAttribute="trailing" id="QuF-yG-QR8"/>
+                                    <constraint firstAttribute="bottom" secondItem="5tq-tZ-p5M" secondAttribute="bottom" constant="10" id="fc6-Ll-PET"/>
+                                    <constraint firstItem="ZFw-BW-ZV8" firstAttribute="leading" secondItem="hl6-gH-AZ9" secondAttribute="leading" id="teQ-1k-dZ0"/>
+                                    <constraint firstItem="5tq-tZ-p5M" firstAttribute="leading" secondItem="hl6-gH-AZ9" secondAttribute="leading" constant="10" id="u6x-1E-NTd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hl6-gH-AZ9" firstAttribute="leading" secondItem="AHe-NM-vvQ" secondAttribute="leading" constant="40" id="22Y-Nj-48C"/>
+                            <constraint firstItem="AHe-NM-vvQ" firstAttribute="bottom" secondItem="hl6-gH-AZ9" secondAttribute="bottom" constant="100" id="CnJ-xZ-zx9"/>
+                            <constraint firstItem="AHe-NM-vvQ" firstAttribute="trailing" secondItem="hl6-gH-AZ9" secondAttribute="trailing" constant="40" id="IPW-vW-avt"/>
+                            <constraint firstItem="hl6-gH-AZ9" firstAttribute="top" secondItem="AHe-NM-vvQ" secondAttribute="top" constant="100" id="QI8-72-BVF"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AHe-NM-vvQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m47-4s-4zN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.2" y="118.29085457271366"/>
         </scene>
     </scenes>
 </document>
