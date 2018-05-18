@@ -7,13 +7,20 @@
 //
 
 import Foundation
-struct FoodItem : Codable{
+protocol Item {
+    var id : String { get set }
+    var name : String { get set }
+    var category_name : String? { get set }
+}
+
+struct FoodItem : Item, Codable{
     var id : String = ""
     var name : String = ""
     var description : String?
     var img_url : String?
     var ingredient_array : [String]?
     var category_name : String?
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(String.self, forKey: .id)
@@ -25,5 +32,16 @@ struct FoodItem : Codable{
     }
     
     init(){
+    }
+}
+
+struct FoodItemOrder : Item {
+    var id : String = ""
+    var name : String = ""
+    var topping : [String:Int]?
+    var category_name : String?
+    
+    func isEmpty() -> Bool {
+        return id.isEmpty
     }
 }

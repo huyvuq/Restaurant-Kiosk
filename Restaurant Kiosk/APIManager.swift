@@ -18,7 +18,7 @@ class APIManager : NSObject{
         let URL = serverURL?.appendingPathComponent("ItemUtils")
         let bag = DisposeBag()
         var cat : [Category] = []
-        let queue = DispatchQueue(label: "com.test.api", qos: .background, attributes: .concurrent)
+//        let queue = DispatchQueue(label: "com.test.api", qos: .background, attributes: .concurrent)
         RxAlamofire.requestJSON(.get, URL!).subscribe(onNext: {(r, value) in
             let json = JSON(value)
             if json["status"]=="success"{

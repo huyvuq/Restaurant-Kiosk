@@ -32,3 +32,39 @@ extension UIViewController {
         }
     }
 }
+
+
+
+
+extension FoodItemCollectionViewCell{
+    func roundedCell(){
+        self.contentView.layer.cornerRadius = 20.0
+        self.contentView.layer.borderColor = UIColor.clear.cgColor
+        
+        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.masksToBounds = true
+        
+        self.layer.shadowOffset = CGSize(width: 2, height: 2)
+        self.layer.shadowRadius = 3.5
+        self.layer.shadowOpacity = 0.5
+        self.layer.masksToBounds = false
+        let newBounds = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(10, 0, 0, 0))
+        self.layer.shadowPath = UIBezierPath(roundedRect: newBounds, cornerRadius:self.contentView.layer.cornerRadius).cgPath
+        
+    }
+}
+
+extension UIView {
+    
+    func addShadow(){
+        self.layer.shadowOpacity = 0.7
+        self.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
+        self.layer.shadowRadius = 5.0
+    }
+    
+    func roundCorner(radius : CGFloat){
+        self.layer.cornerRadius = radius
+        //        self.layer.masksToBounds = true
+    }
+    
+}
