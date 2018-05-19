@@ -44,10 +44,13 @@ extension ToppingGroup: SectionModelType {
 }
 
 extension ToppingGroup {
-//    func getDict(){
-//        let dict = items.reduce([String:Int]) { (name, Item) -> [Int:String]
-//            var name = name
-//            name[
+    func getDict(){
+//        let myDictionary = items.reduce([String:Int]()) { (dict, quantity) -> [String:Int]
+////            var dict = dict
+//            dict[quantity.name] = quani
 //        }
-//    }
+        
+
+    }
+    
 }

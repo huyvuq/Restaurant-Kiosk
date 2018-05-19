@@ -47,4 +47,14 @@ class FoodItemDetailViewModel {
             
         }).disposed(by: disposeBag)
     }
+    
+    func getToppings() -> [String:Int] {
+        if (self.toppingGroupOrder.count > 0){
+            let toppings = toppingGroupOrder[0].items.reduce(into: [String: Int]()) {
+                $0[$1.name] = $1.quantity
+            }
+            return toppings
+        }
+        return [:]
+    }
 }

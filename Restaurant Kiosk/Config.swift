@@ -8,6 +8,6 @@
 
 import Foundation
 
-//let serverURL = NSURL(string: "http://localhost:8080/RestaurantKiosk/") //Local host, for development purpose
+//let serverURL = NSURL(string: "http://localhost:8080/Restaurant_Kiosk/") //Local host, for development purpose
 let serverURL = NSURL(string: "http://52.91.63.113:8080/RestaurantKiosk/")
 

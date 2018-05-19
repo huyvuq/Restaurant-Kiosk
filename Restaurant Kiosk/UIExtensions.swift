@@ -57,9 +57,9 @@ extension FoodItemCollectionViewCell{
 extension UIView {
     
     func addShadow(){
-        self.layer.shadowOpacity = 0.7
-        self.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
-        self.layer.shadowRadius = 5.0
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        self.layer.shadowRadius = 3.5
     }
     
     func roundCorner(radius : CGFloat){

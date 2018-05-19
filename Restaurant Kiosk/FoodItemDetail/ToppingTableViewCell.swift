@@ -15,19 +15,15 @@ class ToppingTableViewCell: UITableViewCell {
     var toppingItem : BehaviorRelay<Topping> = BehaviorRelay(value : Topping(name: "", quantity: 0))
     let disposeBag = DisposeBag()
     @IBOutlet weak var toppingLabel: UILabel!
-    @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var plustButtonOutlet: UIButton!
     @IBOutlet weak var minusButtonOutlet: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        plustButtonOutlet.roundCorner(radius: 15)
-        minusButtonOutlet.roundCorner(radius: 15)
         
         toppingItem.asObservable().subscribe(onNext : { value in
-            self.toppingLabel.text = value.name
-            self.quantityLabel.text = "\(value.quantity)"
+            self.toppingLabel.text = "\(value.quantity) \(value.name)(s)"
         }).disposed(by: disposeBag)
         
         plustButtonOutlet.rx.tap.bind {

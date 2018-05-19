@@ -22,12 +22,12 @@ class FoodItemDetailViewController: UIViewController {
 
     //MARK : - Outlets
     @IBOutlet weak var foodImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet var addButtonOutlet: UIButton!
     @IBOutlet var cancelButtonOutlet: UIButton!
     @IBOutlet var toppingTableView: UITableView!
+    @IBOutlet weak var nameAndDescriptionLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,10 +53,9 @@ class FoodItemDetailViewController: UIViewController {
     }
     
     @IBAction func addButton(_ sender: Any) {
-        print(self.viewModel.toppingGroupOrder)
         self.viewModel.foodItemOder.accept(FoodItemOrder(id: self.viewModel.foodItem.value.id,
                                                          name: self.viewModel.foodItem.value.name,
-                                                         topping: [:],
+                                                         topping: self.viewModel.getToppings(),
                                                          category_name: self.viewModel.foodItem.value.category_name))
         self.dismiss(animated: true, completion: nil)
     }
@@ -66,24 +65,31 @@ class FoodItemDetailViewController: UIViewController {
 extension FoodItemDetailViewController {
     //MARK : - UI component effcts
     func setUIComponentEffects(){
-        self.addButtonOutlet.roundCorner(radius: 20)
-        self.cancelButtonOutlet.roundCorner(radius: 20)
-        self.addButtonOutlet.addShadow()
-        self.cancelButtonOutlet.addShadow()
         
         self.containerView.roundCorner(radius: 10)
-        self.containerView.layer.masksToBounds = true
-        
-        self.foodImageView.addShadow()
+        self.containerView.addShadow()
     }
     
     func viewModelBinding(){
         //Reactive : binding on change
         self.viewModel.foodItem.asObservable().subscribe(onNext: {value in
             //Texts
-            self.nameLabel.text = value.name
-            self.descriptionTextView.text = value.description!
-            
+            let nameAndDescription = "\(value.name)\n\(value.description)"
+            let nameTextAttribute: [NSAttributedStringKey: Any] = [
+                .foregroundColor : UIColor.white,
+                .strokeWidth : -2.0,
+                .font : UIFont.boldSystemFont(ofSize: 20)
+            ]
+            let descriptionTextAttributes: [NSAttributedStringKey: Any] = [
+                .foregroundColor : UIColor.white,
+                .strokeWidth : -2.0,
+                .font : UIFont.systemFont(ofSize: 14)
+            ]
+            let titleAttributedString = NSMutableAttributedString(string: nameAndDescription)
+            titleAttributedString.setAttributes(nameTextAttribute, range: NSRange(location: 0,length: nameAndDescription.count))
+            titleAttributedString.setAttributes(descriptionTextAttributes, range: (nameAndDescription as NSString).range(of: "\n\(value.description)"))
+
+            self.nameAndDescriptionLabel.attributedText = titleAttributedString
             //tableview data
             if let toppingArray = value.ingredient_array{
                 self.viewModel.toppingGroupOrder.append(ToppingGroup(items: []))
