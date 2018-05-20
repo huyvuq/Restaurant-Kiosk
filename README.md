@@ -1,7 +1,7 @@
 # Restaurant-Kiosk
 Restaurant Application using RxSwift and MVVM Architecture
 
-![alt text](https://vuhblog.files.wordpress.com/2018/05/2.png)
+![alt text](https://vuhblog.files.wordpress.com/2018/05/1.png?w=700&h=)
 
 Demo video: 
 https://youtu.be/WCR0dx1n69M
