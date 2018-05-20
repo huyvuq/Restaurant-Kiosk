@@ -12,7 +12,7 @@ import RxCocoa
 import RxDataSources
 
 class ToppingTableViewCell: UITableViewCell {
-    var toppingItem : BehaviorRelay<Topping> = BehaviorRelay(value : Topping(name: "", quantity: 0))
+    var toppingItem : Variable<Topping> = Variable(Topping(name: "", quantity: 0))
     let disposeBag = DisposeBag()
     @IBOutlet weak var toppingLabel: UILabel!
     @IBOutlet weak var plustButtonOutlet: UIButton!
@@ -27,11 +27,11 @@ class ToppingTableViewCell: UITableViewCell {
         }).disposed(by: disposeBag)
         
         plustButtonOutlet.rx.tap.bind {
-            self.toppingItem.accept(self.toppingItem.value.increase())
+            self.toppingItem.value.increase()
         }.disposed(by: disposeBag)
         
         minusButtonOutlet?.rx.tap.bind {
-            self.toppingItem.accept(self.toppingItem.value.decrease())
+            self.toppingItem.value.decrease()
         }.disposed(by: disposeBag)
     }
 

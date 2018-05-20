@@ -17,12 +17,12 @@ struct Topping {
         self.quantity = quantity
     }
     
-    func increase() -> Topping{
-        return Topping(name: self.name, quantity: self.quantity + 1)
+    mutating func increase(){
+       quantity += 1
     }
     
-    func decrease() -> Topping{
-        return Topping(name: self.name, quantity: self.quantity - 1)
+    mutating func decrease(){
+        quantity = quantity > 0 ? quantity - 1 : 0
     }
     
     mutating func setQuantity(quantity : Int){
@@ -43,14 +43,4 @@ extension ToppingGroup: SectionModelType {
     }
 }
 
-extension ToppingGroup {
-    func getDict(){
-//        let myDictionary = items.reduce([String:Int]()) { (dict, quantity) -> [String:Int]
-////            var dict = dict
-//            dict[quantity.name] = quani
-//        }
-        
 
-    }
-    
-}

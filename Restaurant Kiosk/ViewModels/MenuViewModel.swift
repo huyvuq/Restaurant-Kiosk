@@ -57,18 +57,13 @@ class MenuViewModel{
         
         
         cartDataSource.configureCell = {_, tableView, indexPath, item in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as! CartCell
-            cell.itemNameLabel.text = item.name
-            cell.removeButton.rx.tap.subscribe(onNext: { _ in
-                
-                //TODO: Memory leaks here. fix later
-                print("Section \(indexPath.section). Item: \(indexPath.item)")
-                if self.cart.value[indexPath.section].items.indices.contains(indexPath.item){
-                    self.cart.value[indexPath.section].items.remove(at: indexPath.item)
-                }
-            }).disposed(by: self.bag)
-
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath)
+            cell.textLabel?.text = item.name
             return cell
+        }
+        
+        cartDataSource.canEditRowAtIndexPath = {_,_ in
+            return true
         }
         
         cartDataSource.titleForHeaderInSection = {ds, index in
@@ -76,7 +71,12 @@ class MenuViewModel{
         }
     }
     
-    //MARK: Fetch Menu
+    
+   
+}
+
+//MARK: Fetch Menu
+extension MenuViewModel{
     func fetchItemData()->(){
         let URL = serverURL?.appendingPathComponent("ItemUtils")
         RxAlamofire.requestJSON(.get, URL!).subscribe(onNext: { [weak self] (r, value) in
@@ -97,19 +97,22 @@ class MenuViewModel{
                 print(error)
         }).disposed(by: bag)
     }
-    
-    //MARK : - Request to place an order
+}
+//MARK : - Request to place an order
+
+extension MenuViewModel{
     func placeOrder()->(){
         let URL = serverURL?.appendingPathComponent("PlaceOrder")
         let jsonData = try! JSONEncoder().encode(self.cart.value)
         let jsonItem = String(data: jsonData, encoding: String.Encoding.ascii)
         let parameters = ["json":jsonItem!] as [String:Any]
         self.orderStatus.value = OrderStatus.inOrder
-        if self.cart.value.isEmpty {
-            self.orderStatus.value = OrderStatus.processed
+        if self.cart.value.isEmpty || self.cart.value.reduce(true) {$0 && $1.items.isEmpty}{
+            self.orderStatus.value = OrderStatus.cartEmpty
             print("Nothing to order")
             return
         }
+        
         RxAlamofire.requestJSON(.post, URL!, parameters: parameters).subscribe(onNext: {(r, value) in
             let json = JSON(value)
             if json["status"]=="success"{
@@ -118,24 +121,10 @@ class MenuViewModel{
                 self.orderStatus.value = OrderStatus.success
                 
             }
-            }, onError: { error in
-                print(error)
-                self.orderStatus.value = OrderStatus.failure
+        }, onError: { error in
+            print(error)
+            self.orderStatus.value = OrderStatus.failure
         }).disposed(by: bag)
-    }
-}
-
-struct CartCategory : Codable{
-    var header: String
-    var items: [Item]
-}
-
-extension CartCategory: SectionModelType {
-    typealias Item = FoodItemOrder
-    
-    init(original: CartCategory, items: [Item]){
-        self = original
-        self.items = items
     }
 }
 
@@ -144,4 +133,7 @@ enum OrderStatus{
     case success
     case failure
     case processed
+    case cartEmpty
 }
+
+

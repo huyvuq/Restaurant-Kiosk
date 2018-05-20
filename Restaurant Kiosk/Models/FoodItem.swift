@@ -20,7 +20,7 @@ struct FoodItem : Item, Codable{
     var name : String = ""
     var description : String = ""
     var img_url : String?
-    var ingredient_array : [String]?
+    var ingredient_array : [String]? //aka topping (backend defined as ingredient_array)
     var category_name : String = ""
     
     init(from decoder: Decoder) throws {

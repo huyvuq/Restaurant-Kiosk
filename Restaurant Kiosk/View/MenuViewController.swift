@@ -45,35 +45,9 @@ class MenuViewController : UIViewController {
         self.viewModel.categories.asDriver().drive(collectionView.rx.items(dataSource: self.viewModel.dataSource)).disposed(by: bag)
         collectionView.rx.setDelegate(self).disposed(by: bag)
 
-        //Side View
+        //Cart View (side)
         self.setSideView()
-        self.viewModel.cart.asDriver().drive(sideViewTableView.rx.items(dataSource: self.viewModel.cartDataSource)).disposed(by: bag)
-
-        self.sideViewTableView.rx.setDelegate(self).disposed(by: bag)
-        self.placeOrderButton.rx.tap.bind {
-            print("Placing order: ")
-            self.viewModel.placeOrder()
-        }.disposed(by: bag)
         
-        self.viewModel.orderStatus.asObservable().subscribe(onNext: {value in
-            switch value {
-            case .failure:
-                let alert = UIAlertController(title: "Failure", message: "There was a problem placing the order, please try again", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            case .success:
-                let alert = UIAlertController(title: "Success", message: "Order placed", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: {
-                    self.viewModel.orderStatus.value = OrderStatus.processed
-                })
-            case .inOrder:
-                print("Order in process")
-            case .processed:
-                print("Processed")
-            }
-        }).disposed(by: bag)
-            
         //Floating buttons
         self.setUpFloatingButtons()
         
@@ -92,9 +66,13 @@ class MenuViewController : UIViewController {
 extension MenuViewController : UICollectionViewDelegateFlowLayout{
     //Resize
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = CGFloat(UIScreen.main.bounds.width/2 - 30.0)
+        var cellWidth = CGFloat(UIScreen.main.bounds.width/2 - 30.0)
+        if cellWidth >= 200{
+            cellWidth = 200
+        }
         return CGSize(width: cellWidth, height: cellWidth)
     }
+
 }
 
 
@@ -105,8 +83,43 @@ extension MenuViewController {
         sideView.layer.shadowOpacity = 0.5
         sideView.layer.shadowOffset = CGSize(width: 2, height: 2)
         sideViewConstraint.constant = -200
-        
         placeOrderButton.addShadow()
+        
+        self.viewModel.cart.asDriver().drive(sideViewTableView.rx.items(dataSource: self.viewModel.cartDataSource)).disposed(by: bag)
+        
+        self.sideViewTableView.rx.setDelegate(self).disposed(by: bag)
+        self.placeOrderButton.rx.tap.bind {
+            print("Placing order: ")
+            self.viewModel.placeOrder()
+            }.disposed(by: bag)
+        
+        self.viewModel.orderStatus.asObservable().subscribe(onNext: {value in
+            switch value {
+            case .failure:
+                let alert = UIAlertController(title: "Failure", message: "There was a problem placing the order, please try again", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            case .success:
+                let alert = UIAlertController(title: "Success", message: "Order placed", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: {
+                    self.viewModel.orderStatus.value = OrderStatus.processed
+                })
+            case .inOrder:
+                print("Order in process")
+            case .processed:
+                print("Processed")
+            case .cartEmpty:
+                let alert = UIAlertController(title: "Alert", message: "Cart is empty", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: {self.viewModel.orderStatus.value = OrderStatus.processed})
+            }
+        }).disposed(by: bag)
+        
+        sideViewTableView.setEditing(true, animated: true)
+        sideViewTableView.rx.itemDeleted.asObservable().subscribe({indexPath in
+            self.viewModel.cart.value[(indexPath.element?.section)!].items.remove(at: (indexPath.element?.row)!)
+        }).disposed(by: bag)
     }
     
     //MARK : - Action

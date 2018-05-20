@@ -22,6 +22,8 @@ class FoodItemDetailViewModel {
     var foodItemOder : BehaviorRelay<FoodItemOrder> = BehaviorRelay(value: FoodItemOrder())
     var toppingGroupOrder : [ToppingGroup] = []
 
+    //Table view data
+    let dataSource = RxTableViewSectionedReloadDataSource<ToppingGroup>( configureCell: { (_, _, _, _) in fatalError()})
     
     init(){
         foodItem.asObservable().subscribe(onNext : { value in
@@ -46,8 +48,21 @@ class FoodItemDetailViewModel {
             }
             
         }).disposed(by: disposeBag)
+        
+        //Table view
+        dataSource.configureCell = {_, tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ToppingCell", for: indexPath) as! ToppingTableViewCell
+            cell.toppingItem.value = item
+            cell.toppingItem.asObservable().subscribe(onNext : { value in
+                self.toppingGroupOrder[0].items[indexPath.item] = value
+            }).disposed(by: self.disposeBag)
+            return cell
+        }
     }
-    
+}
+
+//MARK - Get topping
+extension FoodItemDetailViewModel{
     func getToppings() -> [String:Int] {
         if (self.toppingGroupOrder.count > 0){
             let toppings = toppingGroupOrder[0].items.reduce(into: [String: Int]()) {

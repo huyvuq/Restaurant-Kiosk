@@ -17,8 +17,8 @@ class FoodItemDetailViewController: UIViewController {
     var viewModel = FoodItemDetailViewModel()
     let disposeBag = DisposeBag()
     
-    //Table view data
-    let dataSource = RxTableViewSectionedReloadDataSource<ToppingGroup>( configureCell: { (_, _, _, _) in fatalError()})
+//    //Table view data
+//    let dataSource = RxTableViewSectionedReloadDataSource<ToppingGroup>( configureCell: { (_, _, _, _) in fatalError()})
 
     //MARK : - Outlets
     @IBOutlet weak var foodImageView: UIImageView!
@@ -111,16 +111,7 @@ extension FoodItemDetailViewController {
             self.foodImageView.image = imageFilter.filter(value)
         }).disposed(by: disposeBag)
         
-        //Table view
-        dataSource.configureCell = {_, tableView, indexPath, item in
-            let cell = self.toppingTableView.dequeueReusableCell(withIdentifier: "ToppingCell", for: indexPath) as! ToppingTableViewCell
-            cell.toppingItem.accept(item)
-            cell.toppingItem.asObservable().subscribe(onNext : { value in
-                self.viewModel.toppingGroupOrder[0].items[indexPath.item] = value
-            }).disposed(by: self.disposeBag)
-            return cell
-        }
-        //Binding
-        self.viewModel.toppingGroups.asDriver().drive(self.toppingTableView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
+        //Table view Binding
+        self.viewModel.toppingGroups.asDriver().drive(self.toppingTableView.rx.items(dataSource: self.viewModel.dataSource)).disposed(by: disposeBag)
     }
 }
