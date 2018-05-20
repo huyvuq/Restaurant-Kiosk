@@ -132,12 +132,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="t5q-hU-tnQ" firstAttribute="bottom" secondItem="fUf-Fa-iwV" secondAttribute="bottom" constant="80" id="2w3-jd-ZSL"/>
-                            <constraint firstItem="fUf-Fa-iwV" firstAttribute="centerX" secondItem="t5q-hU-tnQ" secondAttribute="centerX" id="HiH-Sr-D5t"/>
                             <constraint firstItem="fUf-Fa-iwV" firstAttribute="top" secondItem="t5q-hU-tnQ" secondAttribute="top" constant="60" id="b28-QU-sac"/>
                             <constraint firstItem="t5q-hU-tnQ" firstAttribute="bottom" secondItem="sv7-Er-I3y" secondAttribute="bottom" constant="20" id="fe6-ry-dNE"/>
                             <constraint firstItem="t5q-hU-tnQ" firstAttribute="trailing" secondItem="sv7-Er-I3y" secondAttribute="trailing" constant="20" id="gQM-BL-8BT"/>
-                            <constraint firstItem="fUf-Fa-iwV" firstAttribute="leading" secondItem="t5q-hU-tnQ" secondAttribute="leading" priority="999" constant="20" id="lEp-yn-3nH"/>
-                            <constraint firstItem="t5q-hU-tnQ" firstAttribute="trailing" secondItem="fUf-Fa-iwV" secondAttribute="trailing" priority="999" constant="20" id="yce-Sb-iBf"/>
+                            <constraint firstItem="fUf-Fa-iwV" firstAttribute="leading" secondItem="t5q-hU-tnQ" secondAttribute="leading" constant="20" id="lEp-yn-3nH"/>
+                            <constraint firstItem="t5q-hU-tnQ" firstAttribute="trailing" secondItem="fUf-Fa-iwV" secondAttribute="trailing" constant="20" id="yce-Sb-iBf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t5q-hU-tnQ"/>
                     </view>
@@ -340,7 +339,7 @@
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0R-q6-J2l">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="msd-sT-YJ3">
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="msd-sT-YJ3">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
@@ -487,10 +486,9 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hl6-gH-AZ9" firstAttribute="leading" secondItem="AHe-NM-vvQ" secondAttribute="leading" priority="999" constant="40" id="22Y-Nj-48C"/>
+                            <constraint firstItem="hl6-gH-AZ9" firstAttribute="leading" secondItem="AHe-NM-vvQ" secondAttribute="leading" constant="40" id="22Y-Nj-48C"/>
                             <constraint firstItem="AHe-NM-vvQ" firstAttribute="bottom" secondItem="hl6-gH-AZ9" secondAttribute="bottom" constant="100" id="CnJ-xZ-zx9"/>
-                            <constraint firstItem="hl6-gH-AZ9" firstAttribute="centerX" secondItem="msd-sT-YJ3" secondAttribute="centerX" id="EhU-wj-LPv"/>
-                            <constraint firstItem="AHe-NM-vvQ" firstAttribute="trailing" secondItem="hl6-gH-AZ9" secondAttribute="trailing" priority="999" constant="40" id="IPW-vW-avt"/>
+                            <constraint firstItem="AHe-NM-vvQ" firstAttribute="trailing" secondItem="hl6-gH-AZ9" secondAttribute="trailing" constant="40" id="IPW-vW-avt"/>
                             <constraint firstItem="hl6-gH-AZ9" firstAttribute="top" secondItem="AHe-NM-vvQ" secondAttribute="top" constant="100" id="QI8-72-BVF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AHe-NM-vvQ"/>
