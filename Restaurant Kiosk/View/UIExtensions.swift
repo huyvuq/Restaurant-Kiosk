@@ -68,3 +68,9 @@ extension UIView {
     }
     
 }
+
+extension UIColor{
+    static func transparentBlack() -> UIColor{
+        return UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+    }
+}

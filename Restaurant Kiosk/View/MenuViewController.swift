@@ -154,12 +154,12 @@ extension MenuViewController {
     
     func setUpFloatingButtons(){
         let floaty = Floaty()
-        floaty.buttonColor = UIColor.black
+        floaty.buttonColor = UIColor.transparentBlack()
         floaty.plusColor = UIColor.white
         
         //Buttons
         let cartButton = FloatyItem()
-        cartButton.buttonColor = UIColor.black
+        cartButton.buttonColor = UIColor.transparentBlack()
         cartButton.iconImageView.image = UIImage(named: "cart")!
         cartButton.title = "Cart"
         cartButton.handler = { item in
@@ -171,7 +171,7 @@ extension MenuViewController {
         floaty.addItem(item: cartButton)
         
         let placeOrderButton = FloatyItem()
-        placeOrderButton.buttonColor = UIColor.black
+        placeOrderButton.buttonColor = UIColor.transparentBlack()
         placeOrderButton.iconImageView.image = UIImage(named: "purchase")!
         placeOrderButton.title = "Place Order"
         placeOrderButton.handler = { item in
@@ -181,7 +181,7 @@ extension MenuViewController {
         floaty.addItem(item: placeOrderButton)
         
         let viewReceiptButton = FloatyItem()
-        viewReceiptButton.buttonColor = UIColor.black
+        viewReceiptButton.buttonColor = UIColor.transparentBlack()
         viewReceiptButton.iconImageView.image = UIImage(named: "check")!
         viewReceiptButton.title = "View Receipt(s)"
         viewReceiptButton.handler = { item in

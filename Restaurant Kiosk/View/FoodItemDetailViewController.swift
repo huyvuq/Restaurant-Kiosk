@@ -37,6 +37,19 @@ class FoodItemDetailViewController: UIViewController {
         //Model view bind
         self.viewModelBinding()
         
+        //Button Binding
+        addButtonOutlet.rx.tap.bind(onNext: {
+            self.viewModel.foodItemOder.accept(FoodItemOrder(id: self.viewModel.foodItem.value.id,
+                                                             name: self.viewModel.foodItem.value.name,
+                                                             topping: self.viewModel.getToppings(),
+                                                             category_name: self.viewModel.foodItem.value.category_name))
+            self.dismiss(animated: true, completion: nil)
+        }).disposed(by: disposeBag)
+        
+        cancelButtonOutlet.rx.tap.bind(onNext: {
+            self.dismiss(animated: true, completion: nil)
+
+        }).disposed(by: disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,25 +60,14 @@ class FoodItemDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.viewModel.toppingGroupOrder.removeAll()
     }
-
-    @IBAction func cancelButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func addButton(_ sender: Any) {
-        self.viewModel.foodItemOder.accept(FoodItemOrder(id: self.viewModel.foodItem.value.id,
-                                                         name: self.viewModel.foodItem.value.name,
-                                                         topping: self.viewModel.getToppings(),
-                                                         category_name: self.viewModel.foodItem.value.category_name))
-        self.dismiss(animated: true, completion: nil)
-    }
     
 }
 
 extension FoodItemDetailViewController {
     //MARK : - UI component effcts
     func setUIComponentEffects(){
-        
+        self.addButtonOutlet.addShadow()
+        self.cancelButtonOutlet.addShadow()
         self.containerView.roundCorner(radius: 10)
         self.containerView.addShadow()
     }
