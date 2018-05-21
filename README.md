@@ -6,7 +6,7 @@ Restaurant Application using RxSwift and MVVM Architecture
 Demo video: 
 https://youtu.be/WCR0dx1n69M
 
-Example requests:
+Request examples:
 
 To get list of items:
 http://52.91.63.113:8080/RestaurantKiosk/ItemUtils
